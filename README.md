@@ -52,23 +52,21 @@ Suporte a tema claro/escuro
 | **JSON**                 | Armazenamento de dados local         |
 | **BFG Repo-Cleaner**     | Limpeza de histórico sensível no Git |
 
-⚙️ Instalação
-
-1️⃣ Clone o repositório:
-
-git clone https://github.com/seu-usuario/solution-tecnologia.git
-
-
-2️⃣ Acesse o diretório:
-
-cd solution-tecnologia
-
-
 ---
 
 ## ⚙️ Como Executar o Projeto
 
 ```bash
+
+Clone o repositório:
+
+git clone https://github.com/seu-usuario/solution-tecnologia.git
+
+
+Acesse o diretório:
+
+cd solution-tecnologia
+
 # 1️⃣ Instale as dependências
 npm install
 
