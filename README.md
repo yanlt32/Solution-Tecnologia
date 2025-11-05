@@ -1,33 +1,46 @@
-# Solution Tecnologia - Sistema de Gestão
-<img width="500" height="500" alt="SoluTIon png_1_-removebg-preview" src="https://github.com/user-attachments/assets/3220c0c7-d078-45d6-a12e-a85630871e6b" />
+💼 Solution Tecnologia – Sistema de Gestão Empresarial
+<p align="center"> <img width="400" alt="Logo Solution Tecnologia" src="https://github.com/user-attachments/assets/3220c0c7-d078-45d6-a12e-a85630871e6b" /> </p>
 
-Sistema completo de gestão empresarial com dashboard administrativo, painel do usuário e quiz gamificado.
+💡 Um sistema completo de gestão empresarial com dashboard administrativo, painel do usuário e quiz gamificado, desenvolvido para otimizar a rotina corporativa e tornar a experiência mais interativa.
 
-## 🚀 Funcionalidades
+🚀 Principais Funcionalidades
+👨‍💼 Administração
 
-### Administração
-- Dashboard com métricas e gráficos
-- Gerenciamento de incidentes ITIL
-- Controle de requisições LGPD
-- Monitoramento de sistema
-- Relatórios detalhados
+Dashboard com métricas e gráficos interativos
 
-### Usuário
-- Dashboard personalizado
-- Abertura de chamados
-- Solicitações LGPD
-- Suporte técnico
-- Quiz gamificado
+Gerenciamento de incidentes ITIL
 
-### Quiz Gamificado
-- Perguntas sobre Governança de TI
-- Sistema de pontuação com ranking
-- Timer e bônus por velocidade
-- Medalhas (ouro, prata, bronze)
-- Tema claro/escuro
+Controle de solicitações LGPD
 
-## 📁 Estrutura do Projeto
+Monitoramento de sistemas
 
+Relatórios detalhados para análise e auditoria
+
+👥 Usuário
+
+Dashboard personalizado
+
+Abertura e acompanhamento de chamados
+
+Solicitações LGPD simplificadas
+
+Canal de suporte técnico direto
+
+Quiz gamificado sobre Governança de TI
+
+🏆 Quiz Gamificado
+
+Perguntas interativas sobre Governança e Boas Práticas de TI
+
+Sistema de pontuação e ranking global
+
+Timer dinâmico e bônus por agilidade
+
+Medalhas (ouro, prata e bronze)
+
+Suporte a tema claro/escuro
+
+🧩 Estrutura do Projeto
 Lbfg-report/2025-11-04/23-45-54/pro/
 ├── data/                 # Dados da aplicação
 │   ├── incidents.json
@@ -38,15 +51,15 @@ Lbfg-report/2025-11-04/23-45-54/pro/
 │   └── img/
 │       └── 12.png
 ├── js/
-│   └── auth.js          # Autenticação
-├── views/               # Interfaces por tipo de usuário
-│   ├── adm/             # Painel administrativo
+│   └── auth.js           # Autenticação de usuários
+├── views/                # Interfaces do sistema
+│   ├── adm/              # Painel administrativo
 │   │   ├── dashboard-adm.html
 │   │   ├── tillAdm.html
 │   │   ├── lgpd-adm.html
 │   │   ├── network.html
 │   │   └── logo1.png
-│   ├── usuario/         # Painel do usuário
+│   ├── usuario/          # Painel do usuário
 │   │   ├── dashboard-user.html
 │   │   ├── faq.html
 │   │   ├── tillUsuario.html
@@ -54,27 +67,46 @@ Lbfg-report/2025-11-04/23-45-54/pro/
 │   │   ├── quiz.html
 │   │   ├── support.html
 │   │   └── logo1.png
-│   ├── login.html       # Página de login
+│   ├── login.html
 │   └── logo1.png
-├── bfg-1.15.0.jar       # Ferramenta BFG
-├── bfg.jar
-├── main.js              # Processo principal do Electron
-├── preload.js           # Script de pré-carga
+├── bfg-1.15.0.jar        # Ferramenta BFG (limpeza de histórico Git)
+├── main.js               # Processo principal do Electron
+├── preload.js            # Script de pré-carga
 ├── package.json
 ├── package-lock.json
 └── node debug-structure.js
 
-## 🛠️ Tecnologias Utilizadas
+🛠️ Tecnologias Utilizadas
+Tecnologia	Descrição
+HTML5 / CSS3	Estrutura e estilização responsiva (Grid / Flexbox / Variáveis CSS)
+JavaScript (ES6+)	Lógica e interatividade do sistema
+Chart.js	Geração de gráficos dinâmicos
+Canvas Confetti	Efeitos de celebração
+Font Awesome	Ícones modernos e leves
+⚙️ Instalação
 
-- HTML5
-- CSS3 (Grid, Flexbox, Variáveis CSS)
-- JavaScript (ES6+)
-- Chart.js (Gráficos)
-- Canvas Confetti (Efeitos)
-- Font Awesome (Ícones)
+1️⃣ Clone o repositório:
 
-## 📦 Instalação
-
-1. Clone o repositório:
-```bash
 git clone https://github.com/seu-usuario/solution-tecnologia.git
+
+
+2️⃣ Acesse o diretório:
+
+cd solution-tecnologia
+
+
+3️⃣ Instale as dependências:
+
+npm install
+
+
+4️⃣ Execute o projeto:
+
+npm start
+
+💡 Desenvolvido por
+
+Yan Ladeia Tortelli
+📧 ladeiatortelli8@gmail.com
+
+💻 Tecnólogo em Gestão da Tecnologia da Informação
