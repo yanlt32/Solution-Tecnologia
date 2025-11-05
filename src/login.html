@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Solution Tecnologia</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-light: #8906E6;
+      --primary-dark: #050DEB;
+      --secondary-light: #FF00E2;
+      --accent-light: #FF9F0A;
+      --success-light: #30D158;
+      --danger-light: #FF453A;
+      --text-light: #1C1C1E;
+      --text-secondary-light: #636366;
+      --background-light: #F5F5F7;
+      --surface-light: #FFFFFF;
+      --border-light: #E5E5EA;
+      
+      --primary-dark: #8906E6;
+      --primary-dark-dark: #FF00E2;
+      --secondary-dark: #050DEB;
+      --accent-dark: #FF9F0A;
+      --success-dark: #30D158;
+      --danger-dark: #FF453A;
+      --text-dark: #FFFFFF;
+      --text-secondary-dark: #A1A1A6;
+      --background-dark: #121212;
+      --surface-dark: #1E1E1E;
+      --border-dark: #2C2C2E;
+      
+      --border-radius: 16px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+      transition: background 0.5s ease;
+    }
+
+    body.light-theme {
+      background: linear-gradient(135deg, var(--background-light) 0%, #e6e6fa 100%);
+      color: var(--text-light);
+    }
+
+    body.dark-theme {
+      background: linear-gradient(135deg, var(--background-dark) 0%, #1a1a2e 100%);
+      color: var(--text-dark);
+    }
+
+    body.light-theme::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(137, 6, 230, 0.15), transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(255, 0, 226, 0.1), transparent 30%),
+        radial-gradient(circle at 50% 50%, rgba(255, 159, 10, 0.05), transparent 40%);
+      opacity: 0.4;
+      z-index: -1;
+    }
+
+    body.dark-theme::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(137, 6, 230, 0.2), transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(255, 0, 226, 0.15), transparent 30%),
+        radial-gradient(circle at 50% 50%, rgba(255, 159, 10, 0.1), transparent 40%);
+      opacity: 0.4;
+      z-index: -1;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 24px;
+      background: var(--surface-light);
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      z-index: 100;
+      border: 1px solid var(--border-light);
+      transition: var(--transition);
+    }
+
+    .dark-theme .theme-toggle {
+      background: var(--surface-dark);
+      border: 1px solid var(--border-dark);
+    }
+
+    .toggle-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 10px;
+    }
+
+    .dark-theme .toggle-thumb {
+      left: calc(100% - 22px);
+      background: var(--primary-dark);
+    }
+
+    .login-container {
+      display: flex;
+      width: 100%;
+      max-width: 1000px;
+      min-height: 550px;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .login-left {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .light-theme .login-left {
+      background: linear-gradient(135deg, var(--surface-light) 0%, #f8f9ff 100%);
+    }
+
+    .dark-theme .login-left {
+      background: linear-gradient(135deg, var(--surface-dark) 0%, #2a2a3a 100%);
+    }
+
+    .login-left::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(137, 6, 230, 0.1), transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 0, 226, 0.05), transparent 50%);
+      z-index: 0;
+    }
+
+    .login-right {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .light-theme .login-right {
+      background: linear-gradient(135deg, var(--surface-light) 0%, #f0f0ff 100%);
+    }
+
+    .dark-theme .login-right {
+      background: linear-gradient(135deg, var(--surface-dark) 0%, #252538 100%);
+    }
+
+    .login-right::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 80% 80%, rgba(5, 13, 235, 0.1), transparent 50%),
+        radial-gradient(circle at 20% 20%, rgba(255, 159, 10, 0.05), transparent 50%);
+      z-index: 0;
+    }
+
+    .login-header {
+      text-align: center;
+      padding-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-header img.logo {
+      width: 140px;
+      height: auto;
+      margin-bottom: 15px;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    }
+
+    .login-header h2 {
+      margin-bottom: 10px;
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .dark-theme .login-header h2 {
+      background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .login-header p {
+      color: var(--text-secondary-light);
+      font-size: 16px;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+
+    .dark-theme .login-header p {
+      color: var(--text-secondary-dark);
+    }
+
+    .user-type-selector {
+      display: flex;
+      margin-bottom: 30px;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .user-type-option {
+      flex: 1;
+      padding: 15px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .light-theme .user-type-option {
+      background: var(--surface-light);
+      color: var(--text-secondary-light);
+    }
+
+    .dark-theme .user-type-option {
+      background: var(--surface-dark);
+      color: var(--text-secondary-dark);
+    }
+
+    .user-type-option.active {
+      color: white;
+    }
+
+    .user-type-option.user.active {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+    }
+
+    .user-type-option.admin.active {
+      background: linear-gradient(135deg, var(--secondary-light), var(--secondary-dark));
+    }
+
+    .user-type-option::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .user-type-option:hover::before {
+      left: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+      font-size: 15px;
+      transition: var(--transition);
+    }
+
+    .light-theme .form-group label {
+      color: var(--text-light);
+    }
+
+    .dark-theme .form-group label {
+      color: var(--text-dark);
+    }
+
+    .input-with-icon {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      transition: var(--transition);
+      z-index: 2;
+    }
+
+    .light-theme .input-icon {
+      color: var(--text-secondary-light);
+    }
+
+    .dark-theme .input-icon {
+      color: var(--text-secondary-dark);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 15px 15px 15px 48px;
+      border: 1px solid;
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      transition: var(--transition);
+      position: relative;
+      z-index: 1;
+    }
+
+    .light-theme .form-control {
+      background: var(--surface-light);
+      color: var(--text-light);
+      border-color: var(--border-light);
+    }
+
+    .dark-theme .form-control {
+      background: var(--surface-dark);
+      color: var(--text-dark);
+      border-color: var(--border-dark);
+    }
+
+    .form-control:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(137, 6, 230, 0.25);
+    }
+
+    .light-theme .form-control:focus {
+      border-color: var(--primary-light);
+    }
+
+    .dark-theme .form-control:focus {
+      border-color: var(--primary-dark);
+    }
+
+    .form-control:focus + .input-icon {
+      color: var(--primary-light);
+    }
+
+    .dark-theme .form-control:focus + .input-icon {
+      color: var(--primary-dark);
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 16px;
+      transition: var(--transition);
+      z-index: 2;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .light-theme .password-toggle {
+      color: var(--text-secondary-light);
+    }
+
+    .dark-theme .password-toggle {
+      color: var(--text-secondary-dark);
+    }
+
+    .password-toggle:hover {
+      background: rgba(137, 6, 230, 0.1);
+    }
+
+    .light-theme .password-toggle:hover {
+      color: var(--primary-light);
+    }
+
+    .dark-theme .password-toggle:hover {
+      color: var(--primary-dark);
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 17px;
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 10px;
+      box-shadow: 0 6px 15px rgba(137, 6, 230, 0.3);
+    }
+
+    .btn-login.user {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+    }
+
+    .btn-login.admin {
+      background: linear-gradient(135deg, var(--secondary-light), var(--secondary-dark));
+    }
+
+    .btn-login::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .btn-login:hover::before {
+      left: 100%;
+    }
+
+    .btn-login:disabled {
+      cursor: not-allowed;
+      background: #3A3A3C;
+      box-shadow: none;
+    }
+
+    .light-theme .btn-login:disabled {
+      background: #AEAEB2;
+    }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 24px;
+      font-size: 14px;
+      color: var(--text-secondary-dark);
+      border-top: 1px solid var(--border-dark);
+      position: relative;
+      z-index: 1;
+    }
+
+    .light-theme .login-footer {
+      color: var(--text-secondary-light);
+      border-top: 1px solid var(--border-light);
+    }
+
+    .message {
+      padding: 14px 16px;
+      border-radius: var(--border-radius);
+      margin-bottom: 22px;
+      text-align: center;
+      display: none;
+      font-size: 14px;
+      animation: slideIn 0.3s ease-out;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .message::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+    }
+
+    .message.error {
+      background: rgba(255, 69, 58, 0.1);
+      color: #FF453A;
+      border: 1px solid rgba(255, 107, 104, 0.3);
+    }
+
+    .message.error::before {
+      background: var(--danger-light);
+    }
+
+    .message.success {
+      background: rgba(48, 209, 88, 0.1);
+      color: #30D158;
+      border: 1px solid rgba(76, 175, 80, 0.3);
+    }
+
+    .message.success::before {
+      background: var(--success-light);
+    }
+
+    .support-link {
+      text-align: center;
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .support-link a {
+      color: var(--primary-dark);
+      text-decoration: none;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+
+    .light-theme .support-link a {
+      color: var(--primary-light);
+    }
+
+    .support-link a:hover {
+      text-decoration: underline;
+    }
+
+    .user-benefits, .admin-benefits {
+      padding: 20px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .benefit-item i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .light-theme .benefit-item {
+      color: var(--text-secondary-light);
+    }
+
+    .dark-theme .benefit-item {
+      color: var(--text-secondary-dark);
+    }
+
+    .user-benefits .benefit-item i {
+      color: var(--primary-light);
+    }
+
+    .admin-benefits .benefit-item i {
+      color: var(--secondary-light);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+
+    .shake {
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .login-container {
+        flex-direction: column;
+        max-width: 450px;
+      }
+      
+      .login-left, .login-right {
+        padding: 30px 25px;
+      }
+      
+      .theme-toggle {
+        top: 10px;
+        right: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      .login-left, .login-right {
+        padding: 25px 20px;
+      }
+
+      .login-header img.logo {
+        width: 120px;
+      }
+    }
+  </style>
+</head>
+<body class="dark-theme">
+  <div class="theme-toggle" id="themeToggle">
+    <div class="toggle-thumb">
+      <i class="fas fa-moon" id="themeIcon"></i>
+    </div>
+  </div>
+
+  <div class="login-container">
+    <div class="login-left">
+      <div class="login-header">
+        <img src="logo1.png" alt="Solution Tecnologia Logo" class="logo">
+        <h2>Solution Tecnologia</h2>
+        <p>Acesse o sistema com suas credenciais</p>
+      </div>
+
+      <div class="user-type-selector">
+        <div class="user-type-option user active" data-type="user">
+          <i class="fas fa-user"></i> Usuário
+        </div>
+        <div class="user-type-option admin" data-type="admin">
+          <i class="fas fa-user-shield"></i> Administrador
+        </div>
+      </div>
+
+      <div id="message" class="message"></div>
+
+      <div class="form-group">
+        <label for="username">Usuário</label>
+        <div class="input-with-icon">
+          <i class="fas fa-user input-icon"></i>
+          <input type="text" id="username" class="form-control" placeholder="Digite seu usuário" autocomplete="username">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <div class="input-with-icon">
+          <i class="fas fa-lock input-icon"></i>
+          <input type="password" id="password" class="form-control" placeholder="Digite sua senha" autocomplete="current-password">
+          <button type="button" class="password-toggle" id="passwordToggle">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+      </div>
+
+      <button type="button" class="btn-login user" id="loginBtn">
+        <i class="fas fa-sign-in-alt"></i> Entrar no Sistema
+      </button>
+
+      <div class="support-link">
+        <a href="#"><i class="fas fa-question-circle"></i> Problemas para acessar? Contate o suporte</a>
+      </div>
+
+      <div class="login-footer">
+        <p>Sistema de Gestão Acadêmica - Versão 2.0 &copy; 2025</p>
+      </div>
+    </div>
+
+    <div class="login-right">
+      <div class="user-benefits" id="userBenefits">
+        <h3 style="margin-bottom: 20px; font-weight: 600;">Benefícios para Usuários</h3>
+        <div class="benefit-item">
+          <i class="fas fa-chart-line"></i>
+          <span>Acesso a relatórios e métricas de desempenho</span>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Controle de agenda e atividades programadas</span>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-file-alt"></i>
+          <span>Visualização de documentos e materiais de estudo</span>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-comments"></i>
+          <span>Comunicação direta com instrutores e colegas</span>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-trophy"></i>
+          <span>Acompanhamento de progresso e conquistas</span>
+        </div>
+      </div>
+
+      <div class="admin-benefits" id="adminBenefits" style="display: none;">
+        <h3 style="margin-bottom: 20px; font-weight: 600;">Privilégios de Administrador</h3>
+        <div class="benefit-item">
+          <i class="fas fa-cog"></i>
+          <span>Configuração completa do sistema</span>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-users"></i>
+          <span>Gestão de usuários e permissões</span>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-database"></i>
+          <span>Backup e restauração de dados</span>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-chart-pie"></i>
+          <span>Relatórios avançados e analytics</span>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-shield-alt"></i>
+          <span>Controle de segurança e auditoria</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Função para alternar o tema
+    document.getElementById('themeToggle').addEventListener('click', function() {
+      const body = document.body;
+      const themeIcon = document.getElementById('themeIcon');
+      
+      if (body.classList.contains('dark-theme')) {
+        body.classList.remove('dark-theme');
+        body.classList.add('light-theme');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      } else {
+        body.classList.remove('light-theme');
+        body.classList.add('dark-theme');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+      }
+    });
+
+    // Função para alternar visibilidade da senha
+    document.getElementById('passwordToggle').addEventListener('click', function() {
+      const passwordInput = document.getElementById('password');
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      this.querySelector('i').classList.toggle('fa-eye');
+      this.querySelector('i').classList.toggle('fa-eye-slash');
+    });
+
+    // Login com tecla Enter
+    document.getElementById('password').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        login();
+      }
+    });
+
+    // Funcionalidade do seletor de tipo de usuário
+    const userTypeOptions = document.querySelectorAll('.user-type-option');
+    const loginBtn = document.getElementById('loginBtn');
+    const userBenefits = document.getElementById('userBenefits');
+    const adminBenefits = document.getElementById('adminBenefits');
+    
+    userTypeOptions.forEach(option => {
+      option.addEventListener('click', function() {
+        const type = this.getAttribute('data-type');
+        
+        // Atualiza o estado ativo
+        userTypeOptions.forEach(opt => opt.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Atualiza o botão de login
+        loginBtn.className = `btn-login ${type}`;
+        
+        // Atualiza a exibição dos benefícios
+        if (type === 'user') {
+          userBenefits.style.display = 'block';
+          adminBenefits.style.display = 'none';
+        } else {
+          userBenefits.style.display = 'none';
+          adminBenefits.style.display = 'block';
+        }
+      });
+    });
+
+    // Função de login
+    async function login() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const activeType = document.querySelector('.user-type-option.active').getAttribute('data-type');
+      const message = document.getElementById('message');
+      const loginBtn = document.getElementById('loginBtn');
+      const loginContainer = document.querySelector('.login-container');
+
+      if (!username || !password) {
+        showMessage('Por favor, preencha todos os campos.', 'error');
+        loginContainer.classList.add('shake');
+        setTimeout(() => loginContainer.classList.remove('shake'), 400);
+        return;
+      }
+
+      loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
+      loginBtn.disabled = true;
+
+      await new Promise(resolve => setTimeout(resolve, 1200));
+
+      // Chama o handler de login no processo principal
+      const result = await window.electronAPI.login({ username, password, userType: activeType });
+
+      if (result.success) {
+        showMessage('Login bem-sucedido! Redirecionando...', 'success');
+        // O redirecionamento será tratado pelo processo principal
+      } else {
+        showMessage(result.message || 'Credenciais inválidas. Verifique e tente novamente.', 'error');
+        loginContainer.classList.add('shake');
+        setTimeout(() => loginContainer.classList.remove('shake'), 400);
+        loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Entrar no Sistema';
+        loginBtn.disabled = false;
+      }
+    }
+
+    // Função para exibir mensagens
+    function showMessage(text, type) {
+      const message = document.getElementById('message');
+      message.textContent = text;
+      message.className = `message ${type}`;
+      message.style.display = 'block';
+      message.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Evento de carregamento inicial
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('username').focus();
+      document.getElementById('loginBtn').addEventListener('click', login);
+    });
+  </script>
+</body>
+</html>

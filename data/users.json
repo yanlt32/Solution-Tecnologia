@@ -1,0 +1,16 @@
+[
+  {
+    "username": "usuario",
+    "password": "user123",
+    "role": "Usuário",
+    "type": "user",
+    "email": "usuario@faculdade.edu"
+  },
+  {
+    "username": "admin",
+    "password": "admin123",
+    "role": "Administrador",
+    "type": "admin",
+    "email": "admin@faculdade.edu"
+  }
+]

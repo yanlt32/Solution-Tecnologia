@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suporte Técnico - Solution Tecnologia</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary-light: #8906e6;
+      --primary-dark: #050deb;
+      --secondary-light: #ff00e2;
+      --accent-light: #ff9f0a;
+      --success-light: #30d158;
+      --danger-light: #ff453a;
+      --warning-light: #ff9f0a;
+      --text-light: #1c1c1e;
+      --text-secondary-light: #636366;
+      --background-light: #f5f5f7;
+      --surface-light: #ffffff;
+      --border-light: #e5e5ea;
+      --primary: #8906e6;
+      --primary-dark-dark: #ff00e2;
+      --secondary-dark: #050deb;
+      --accent-dark: #ff9f0a;
+      --success-dark: #30d158;
+      --danger-dark: #ff453a;
+      --warning-dark: #ff9f0a;
+      --text-dark: #ffffff;
+      --text-secondary-dark: #a1a1a6;
+      --background-dark: #121212;
+      --surface-dark: #1e1e1e;
+      --border-dark: #2c2c2e;
+      --border-radius: 12px;
+      --sidebar-width: 240px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+    }
+
+    body {
+      background-color: var(--background-dark);
+      color: var(--text-dark);
+      line-height: 1.6;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease;
+    }
+
+    body[data-theme="light"] {
+      background-color: var(--background-light);
+      color: var(--text-light);
+    }
+
+    .dashboard-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--surface-dark);
+      color: var(--text-dark);
+      padding: 0;
+      transition: var(--transition);
+      border-right: 1px solid var(--border-dark);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+    }
+
+    body[data-theme="light"] .sidebar {
+      background: var(--surface-light);
+      color: var(--text-light);
+      border-right: 1px solid var(--border-light);
+    }
+
+    .sidebar-header {
+      padding: 24px 20px;
+      border-bottom: 1px solid var(--border-dark);
+      text-align: center;
+    }
+
+    body[data-theme="light"] .sidebar-header {
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .sidebar-header img.logo {
+      width: 80px;
+      height: auto;
+      margin-bottom: 8px;
+    }
+
+    .sidebar-header h2 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    body[data-theme="light"] .sidebar-header h2 {
+      color: var(--text-light);
+    }
+
+    .sidebar-header h2 i {
+      color: var(--primary-dark);
+      background: rgba(137, 6, 230, 0.2);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body[data-theme="light"] .sidebar-header h2 i {
+      color: var(--primary-light);
+    }
+
+    .user-info {
+      padding: 20px;
+      margin-bottom: 0;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    body[data-theme="light"] .user-info {
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .user-info p {
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: var(--text-secondary-dark);
+    }
+
+    body[data-theme="light"] .user-info p {
+      color: var(--text-secondary-light);
+    }
+
+    .user-info .role-badge {
+      display: inline-block;
+      background: var(--primary-dark);
+      color: var(--text-dark);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    body[data-theme="light"] .user-info .role-badge {
+      background: var(--primary-light);
+      color: var(--text-light);
+    }
+
+    .nav-menu {
+      list-style: none;
+      padding: 12px;
+      flex-grow: 1;
+    }
+
+    .nav-item {
+      margin-bottom: 4px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 12px 14px;
+      color: var(--text-secondary-dark);
+      text-decoration: none;
+      transition: var(--transition);
+      gap: 10px;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    body[data-theme="light"] .nav-link {
+      color: var(--text-secondary-light);
+    }
+
+    .nav-link:hover {
+      background: rgba(137, 6, 230, 0.1);
+      color: var(--primary-dark);
+    }
+
+    body[data-theme="light"] .nav-link:hover {
+      color: var(--primary-light);
+    }
+
+    .nav-link.active {
+      background: rgba(137, 6, 230, 0.2);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    body[data-theme="light"] .nav-link.active {
+      color: var(--primary-light);
+    }
+
+    .nav-link.active::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 18px;
+      width: 4px;
+      background: var(--primary-dark);
+      border-radius: 0 2px 2px 0;
+    }
+
+    body[data-theme="light"] .nav-link.active::before {
+      background: var(--primary-light);
+    }
+
+    .nav-link i {
+      width: 18px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .sidebar-footer {
+      padding: 12px;
+      border-top: 1px solid var(--border-dark);
+      font-size: 11px;
+      color: var(--text-secondary-dark);
+      text-align: center;
+    }
+
+    body[data-theme="light"] .sidebar-footer {
+      border-top: 1px solid var(--border-light);
+      color: var(--text-secondary-light);
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      background: var(--background-dark);
+    }
+
+    body[data-theme="light"] .main-content {
+      background: var(--background-light);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    body[data-theme="light"] .header {
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .header h1 {
+      color: var(--text-dark);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    body[data-theme="light"] .header h1 {
+      color: var(--text-light);
+    }
+
+    .btn-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn,
+    .logout-btn {
+      background: var(--danger-light);
+      color: var(--text-dark);
+      border: none;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+      font-weight: 500;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(255, 69, 58, 0.2);
+      text-decoration: none;
+    }
+
+    body[data-theme="light"] .back-btn,
+    body[data-theme="light"] .logout-btn {
+      color: var(--text-light);
+    }
+
+    .back-btn:hover,
+    .logout-btn:hover {
+      background: #d70015;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 69, 58, 0.3);
+    }
+
+    .welcome-banner {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-dark-dark));
+      color: var(--text-dark);
+      padding: 24px;
+      border-radius: var(--border-radius);
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(137, 6, 230, 0.25);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    body[data-theme="light"] .welcome-banner {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      color: var(--text-light);
+    }
+
+    .welcome-banner:hover {
+      transform: translateY(-5px);
+    }
+
+    .welcome-banner::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .welcome-banner h2 {
+      margin-bottom: 10px;
+      font-size: 22px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+
+    .welcome-banner p {
+      opacity: 0.9;
+      font-size: 15px;
+      max-width: 500px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .faq-section {
+      background: var(--surface-dark);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-dark);
+    }
+
+    body[data-theme="light"] .faq-section {
+      background: var(--surface-light);
+      border: 1px solid var(--border-light);
+    }
+
+    .faq-section h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-dark);
+    }
+
+    body[data-theme="light"] .faq-section h2 {
+      color: var(--text-light);
+    }
+
+    .faq-item {
+      margin-bottom: 16px;
+    }
+
+    .faq-question {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+    }
+
+    body[data-theme="light"] .faq-question {
+      color: var(--text-light);
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .faq-question:hover {
+      background: rgba(137, 6, 230, 0.1);
+    }
+
+    .faq-answer {
+      font-size: 14px;
+      color: var(--text-secondary-dark);
+      padding: 12px;
+      display: none;
+    }
+
+    body[data-theme="light"] .faq-answer {
+      color: var(--text-secondary-light);
+    }
+
+    .faq-answer.active {
+      display: block;
+    }
+
+    .form-card {
+      background: var(--surface-dark);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-dark);
+    }
+
+    body[data-theme="light"] .form-card {
+      background: var(--surface-light);
+      border: 1px solid var(--border-light);
+    }
+
+    .form-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-dark);
+    }
+
+    body[data-theme="light"] .form-card h2 {
+      color: var(--text-light);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .form-group {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    body[data-theme="light"] .form-group label {
+      color: var(--text-light);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border-dark);
+      border-radius: var(--border-radius);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-dark);
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    body[data-theme="light"] .form-control {
+      border: 1px solid var(--border-light);
+      background: var(--surface-light);
+      color: var(--text-light);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-dark);
+      box-shadow: 0 0 0 3px rgba(137, 6, 230, 0.2);
+    }
+
+    body[data-theme="light"] .form-control:focus {
+      border-color: var(--primary-light);
+    }
+
+    .form-control[readonly] {
+      background: rgba(255, 255, 255, 0.03);
+      cursor: not-allowed;
+    }
+
+    body[data-theme="light"] .form-control[readonly] {
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    .form-control option {
+      background: var(--surface-dark);
+      color: var(--text-dark);
+    }
+
+    body[data-theme="light"] .form-control option {
+      background: var(--surface-light);
+      color: var(--text-light);
+    }
+
+    .btn-primary {
+      background: var(--primary-dark);
+      color: var(--text-dark);
+      border: none;
+      padding: 12px 20px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(137, 6, 230, 0.2);
+    }
+
+    body[data-theme="light"] .btn-primary {
+      background: var(--primary-light);
+      color: var(--text-light);
+    }
+
+    .btn-primary:hover {
+      background: #3b0a9b;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(137, 6, 230, 0.3);
+    }
+
+    body[data-theme="light"] .btn-primary:hover {
+      background: #6b05b3;
+    }
+
+    .table-card {
+      background: var(--surface-dark);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-dark);
+    }
+
+    body[data-theme="light"] .table-card {
+      background: var(--surface-light);
+      border: 1px solid var(--border-light);
+    }
+
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .table-header h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    body[data-theme="light"] .table-header h2 {
+      color: var(--text-light);
+    }
+
+    .table-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 10px;
+      color: var(--text-secondary-dark);
+      font-size: 14px;
+    }
+
+    body[data-theme="light"] .search-box i {
+      color: var(--text-secondary-light);
+    }
+
+    .search-box input {
+      padding: 8px 12px 8px 32px;
+      border: 1px solid var(--border-dark);
+      border-radius: var(--border-radius);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-dark);
+      font-size: 14px;
+      width: 200px;
+      transition: var(--transition);
+    }
+
+    body[data-theme="light"] .search-box input {
+      border: 1px solid var(--border-light);
+      background: var(--surface-light);
+      color: var(--text-light);
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--primary-dark);
+      box-shadow: 0 0 0 3px rgba(137, 6, 230, 0.2);
+    }
+
+    body[data-theme="light"] .search-box input:focus {
+      border-color: var(--primary-light);
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-dark);
+      font-size: 14px;
+    }
+
+    body[data-theme="light"] th, body[data-theme="light"] td {
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    th {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    body[data-theme="light"] th {
+      color: var(--text-light);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .badge-open {
+      background: rgba(255, 159, 10, 0.2);
+      color: var(--warning-light);
+    }
+
+    .badge-progress {
+      background: rgba(137, 6, 230, 0.2);
+      color: var(--primary-dark);
+    }
+
+    body[data-theme="light"] .badge-progress {
+      color: var(--primary-light);
+    }
+
+    .badge-resolved {
+      background: rgba(48, 209, 88, 0.2);
+      color: var(--success-light);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-icon {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary-dark);
+      cursor: pointer;
+      font-size: 16px;
+      padding: 6px;
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+
+    body[data-theme="light"] .btn-icon {
+      color: var(--text-secondary-light);
+    }
+
+    .btn-icon:hover {
+      background: rgba(137, 6, 230, 0.1);
+      color: var(--primary-dark);
+    }
+
+    body[data-theme="light"] .btn-icon:hover {
+      color: var(--primary-light);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-secondary-dark);
+    }
+
+    body[data-theme="light"] .empty-state {
+      color: var(--text-secondary-light);
+    }
+
+    .empty-state i {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: var(--surface-dark);
+      border-radius: var(--border-radius);
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-dark);
+    }
+
+    body[data-theme="light"] .modal-content {
+      background: var(--surface-light);
+      border: 1px solid var(--border-light);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    body[data-theme="light"] .modal-header {
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .modal-header h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    body[data-theme="light"] .modal-header h3 {
+      color: var(--text-light);
+    }
+
+    .modal-header .close {
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      color: var(--text-secondary-dark);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    body[data-theme="light"] .modal-header .close {
+      color: var(--text-secondary-light);
+    }
+
+    .modal-header .close:hover {
+      color: var(--primary-dark);
+    }
+
+    body[data-theme="light"] .modal-header .close:hover {
+      color: var(--primary-light);
+    }
+
+    .modal-body {
+      padding: 20px;
+      color: var(--text-dark);
+      font-size: 14px;
+    }
+
+    body[data-theme="light"] .modal-body {
+      color: var(--text-light);
+    }
+
+    .modal-body p {
+      margin-bottom: 12px;
+    }
+
+    .modal-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border-dark);
+      text-align: right;
+    }
+
+    body[data-theme="light"] .modal-footer {
+      border-top: 1px solid var(--border-light);
+    }
+
+    .btn-cancel {
+      background: var(--danger-light);
+      color: var(--text-dark);
+      border: none;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    body[data-theme="light"] .btn-cancel {
+      color: var(--text-light);
+    }
+
+    .btn-cancel:hover {
+      background: #d70015;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 69, 58, 0.3);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--primary-dark);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+      transition: var(--transition);
+    }
+
+    body[data-theme="light"] .theme-toggle {
+      background: var(--primary-light);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 992px) {
+      .dashboard-container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-dark);
+      }
+
+      body[data-theme="light"] .sidebar {
+        border-bottom: 1px solid var(--border-light);
+      }
+
+      .nav-menu {
+        display: flex;
+        overflow-x: auto;
+        padding: 0 12px 12px;
+      }
+
+      .nav-item {
+        flex-shrink: 0;
+      }
+
+      .nav-link {
+        padding: 10px 14px;
+      }
+
+      .main-content {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .btn-group {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .welcome-banner {
+        padding: 20px;
+      }
+
+      .welcome-banner h2 {
+        font-size: 20px;
+      }
+
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .form-card,
+      .table-card,
+      .faq-section {
+        padding: 16px;
+      }
+
+      .form-row {
+        flex-direction: column;
+      }
+
+      .form-group {
+        min-width: 100%;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .main-content {
+        padding: 16px;
+      }
+
+      .header h1 {
+        font-size: 20px;
+      }
+
+      .welcome-banner::before {
+        display: none;
+      }
+
+      th, td {
+        font-size: 12px;
+        padding: 8px;
+      }
+
+      .actions {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .faq-section, .form-card, .table-card, .welcome-banner {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="logo1.png" alt="Solution Tecnologia Logo" class="logo" />
+        <h2></i> Solution Tecnologia</h2>
+      </div>
+      <div class="user-info">
+        <p>Bem-vindo, <strong id="username">Usuário</strong></p>
+        <p><span class="role-badge" id="userrole">Usuário</span></p>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="dashboard-user.html" class="nav-link">
+            <i class="fas fa-home"></i> Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="itilusuario.html" class="nav-link">
+            <i class="fas fa-tasks"></i> Meus Chamados
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="lgpd-user.html" class="nav-link">
+            <i class="fas fa-shield-alt"></i> LGPD - Requisições
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="support.html" class="nav-link active">
+            <i class="fas fa-headset"></i> Suporte
+          </a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Speedpro Faculdade &copy; 2025</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="header">
+        <h1><i class="fas fa-headset"></i> Suporte Técnico</h1>
+        <div class="btn-group">
+          <a href="dashboard-user.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Voltar
+          </a>
+          <button class="logout-btn" onclick="window.location.href='../../login.html'" aria-label="Sair">
+            <i class="fas fa-sign-out-alt"></i> Sair
+          </button>
+        </div>
+      </div>
+
+      <div class="welcome-banner">
+        <h2>Suporte Técnico para Software e Login</h2>
+        <p>Relate problemas relacionados ao software ou dificuldades de login. Nossa equipe está pronta para ajudar!</p>
+      </div>
+
+      <div class="faq-section">
+        <h2>Perguntas Frequentes</h2>
+        <div class="faq-item">
+          <div class="faq-question">Não consigo fazer login. O que devo fazer?</div>
+          <div class="faq-answer">Verifique se seu e-mail e senha estão corretos. Se o problema persistir, use o formulário abaixo para relatar o problema, incluindo detalhes como mensagens de erro ou capturas de tela.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">O software está travando ou exibindo erros. Como reportar?</div>
+          <div class="faq-answer">Utilize o formulário de suporte abaixo, selecionando a categoria "Problema no Software" e descrevendo o erro detalhadamente, incluindo o nome do software e o que você estava fazendo quando ocorreu.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Como acompanho minhas solicitações de suporte?</div>
+          <div class="faq-answer">Na tabela abaixo, você pode ver todas as suas solicitações de suporte. Clique no ícone de detalhes para mais informações sobre o status.</div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h2>Nova Solicitação de Suporte</h2>
+        <form id="support-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="support-title">Título do Problema *</label>
+              <input type="text" id="support-title" class="form-control" placeholder="Ex: Erro ao acessar o sistema" required>
+            </div>
+            <div class="form-group">
+              <label for="support-category">Categoria *</label>
+              <select id="support-category" class="form-control" required>
+                <option value="" disabled selected>Selecione a categoria</option>
+                <option value="Problema no Software">Problema no Software</option>
+                <option value="Problema de Login">Problema de Login</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="support-description">Descrição do Problema *</label>
+            <textarea id="support-description" class="form-control" rows="5" placeholder="Descreva o problema detalhadamente, incluindo mensagens de erro ou capturas de tela..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary">
+            <i class="fas fa-plus"></i> Enviar Solicitação
+          </button>
+        </form>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <h2>Minhas Solicitações de Suporte</h2>
+          <div class="table-actions">
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input type="text" id="search-input" placeholder="Buscar solicitação...">
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Categoria</th>
+                <th>Status</th>
+                <th>Data</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="support-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal" id="detailsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Detalhes da Solicitação</h3>
+        <button class="close" id="closeDetails">&times;</button>
+      </div>
+      <div class="modal-body" id="detailsContent"></div>
+      <div class="modal-footer">
+        <button class="btn-cancel" id="closeDetailsBtn">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="theme-toggle" id="theme-toggle">
+    <i class="fas fa-sun"></i>
+  </div>
+
+  <script>
+    let incidents = JSON.parse(localStorage.getItem('incidents')) || [];
+
+    function initializeData() {
+      if (!localStorage.getItem('incidents')) {
+        const sampleIncidents = [
+          {
+            id: "INC-0001",
+            requester: "Usuário",
+            title: "Erro ao fazer login",
+            category: "Problema de Login",
+            status: "Aberto",
+            description: "Não consigo acessar o sistema com minhas credenciais.",
+            createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+            history: [{ type: "create", text: "Solicitação criada", date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString() }]
+          },
+          {
+            id: "INC-0002",
+            requester: "Usuário",
+            title: "Software trava ao salvar",
+            category: "Problema no Software",
+            status: "Em Andamento",
+            description: "O software de gerenciamento trava toda vez que tento salvar um registro.",
+            createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+            history: [
+              { type: "create", text: "Solicitação criada", date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString() },
+              { type: "update", text: "Em análise pela equipe técnica", date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString() }
+            ]
+          },
+          {
+            id: "INC-0003",
+            requester: "Usuário",
+            title: "Mensagem de erro no dashboard",
+            category: "Problema no Software",
+            status: "Resolvido",
+            description: "Aparece uma mensagem de erro 500 ao acessar o dashboard.",
+            createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
+            resolution: "Erro corrigido após atualização do servidor.",
+            history: [
+              { type: "create", text: "Solicitação criada", date: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString() },
+              { type: "resolve", text: "Solicitação resolvida", date: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString() }
+            ]
+          }
+        ];
+        localStorage.setItem('incidents', JSON.stringify(sampleIncidents));
+        incidents = sampleIncidents;
+      }
+    }
+
+    function generateId() {
+      return 'INC-' + String(incidents.length + 1).padStart(4, '0');
+    }
+
+    function formatDate(date) {
+      const d = new Date(date);
+      return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+    }
+
+    function formatDateTime(date) {
+      const d = new Date(date);
+      return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+    }
+
+    function renderSupportTickets() {
+      const user = JSON.parse(localStorage.getItem('user')) || { username: 'Usuário' };
+      const tableBody = document.getElementById('support-table');
+      const searchTerm = document.getElementById('search-input').value.toLowerCase();
+
+      let filteredIncidents = incidents.filter(incident =>
+        incident.requester === user.username &&
+        (incident.title.toLowerCase().includes(searchTerm) ||
+         incident.description.toLowerCase().includes(searchTerm) ||
+         incident.category.toLowerCase().includes(searchTerm))
+      );
+
+      if (filteredIncidents.length === 0) {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="6" class="empty-state">
+              <i class="fas fa-inbox"></i>
+              <p>Nenhuma solicitação encontrada</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tableBody.innerHTML = filteredIncidents.map(incident => {
+        let badgeClass = incident.status === 'Aberto' ? 'badge-open' :
+                        incident.status === 'Em Andamento' ? 'badge-progress' : 'badge-resolved';
+        return `
+          <tr>
+            <td>${incident.id}</td>
+            <td>${incident.title}</td>
+            <td>${incident.category}</td>
+            <td><span class="badge ${badgeClass}">${incident.status}</span></td>
+            <td>${formatDate(incident.createdAt)}</td>
+            <td class="actions">
+              <button class="btn-icon btn-view" title="Detalhes" data-id="${incident.id}">
+                <i class="fas fa-eye"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      document.querySelectorAll('.btn-view').forEach(button => {
+        button.addEventListener('click', (e) => {
+          const incidentId = e.currentTarget.getAttribute('data-id');
+          showDetailsModal(incidentId);
+        });
+      });
+    }
+
+    document.getElementById('support-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const user = JSON.parse(localStorage.getItem('user')) || { username: 'Usuário', email: 'usuario@faculdade.edu' };
+      const id = generateId();
+      const title = document.getElementById('support-title').value;
+      const category = document.getElementById('support-category').value;
+      const description = document.getElementById('support-description').value;
+      const createdAt = new Date().toISOString();
+      const now = new Date().toISOString();
+
+      const incident = {
+        id,
+        requester: user.username,
+        title,
+        category,
+        status: 'Aberto',
+        description,
+        createdAt,
+        history: [{ type: 'create', text: 'Solicitação criada', date: now }]
+      };
+
+      incidents.push(incident);
+      localStorage.setItem('incidents', JSON.stringify(incidents));
+      alert('Solicitação de suporte criada com sucesso!');
+      document.getElementById('support-form').reset();
+      document.getElementById('support-category').value = '';
+      renderSupportTickets();
+    });
+
+    function showDetailsModal(id) {
+      const incident = incidents.find(i => i.id === id);
+      if (!incident) return;
+
+      document.getElementById('detailsContent').innerHTML = `
+        <p><strong>ID:</strong> ${incident.id}</p>
+        <p><strong>Solicitante:</strong> ${incident.requester}</p>
+        <p><strong>Título:</strong> ${incident.title}</p>
+        <p><strong>Categoria:</strong> ${incident.category}</p>
+        <p><strong>Status:</strong> ${incident.status}</p>
+        <p><strong>Data de Criação:</strong> ${formatDate(incident.createdAt)}</p>
+        <p><strong>Descrição:</strong> ${incident.description || 'Nenhuma descrição'}</p>
+        ${incident.resolution ? `<p><strong>Resolução:</strong> ${incident.resolution}</p>` : ''}
+        ${incident.history && incident.history.length > 0 ? `
+        <div style="margin-top: 20px; border-top: 1px solid var(--border-dark); padding-top: 15px;">
+          <h4 style="margin-bottom: 10px; color: var(--text-dark);">Histórico de Alterações</h4>
+          ${incident.history.map(item => `
+            <p style="font-size: 13px; color: var(--text-secondary-dark); margin-bottom: 5px;">
+              <i class="fas fa-clock" style="margin-right: 5px;"></i>
+              ${formatDateTime(item.date)} - ${item.text}
+            </p>
+          `).join('')}
+        </div>
+        ` : ''}
+      `;
+      document.getElementById('detailsModal').style.display = 'flex';
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+
+    document.getElementById('closeDetails').addEventListener('click', () => closeModal('detailsModal'));
+    document.getElementById('closeDetailsBtn').addEventListener('click', () => closeModal('detailsModal'));
+
+    window.addEventListener('click', function(e) {
+      if (e.target.classList.contains('modal')) {
+        closeModal(e.target.id);
+      }
+    });
+
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal('detailsModal');
+      }
+    });
+
+    document.getElementById('search-input').addEventListener('input', renderSupportTickets);
+
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      const themeToggle = document.getElementById('theme-toggle');
+
+      if (currentTheme === 'light') {
+        body.setAttribute('data-theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        body.setAttribute('data-theme', 'light');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeData();
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.body.setAttribute('data-theme', savedTheme);
+      document.getElementById('theme-toggle').innerHTML = savedTheme === 'light' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+
+      const user = JSON.parse(localStorage.getItem('user')) || { username: 'Usuário', role: 'Usuário', type: 'user', email: 'usuario@faculdade.edu' };
+      document.getElementById('username').textContent = user.username;
+      document.getElementById('userrole').textContent = user.role;
+
+      if (user.type !== 'user') {
+        alert('Acesso não autorizado. Redirecionando para login.');
+        logout();
+        return;
+      }
+
+      renderSupportTickets();
+      document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+      // FAQ toggle functionality
+      document.querySelectorAll('.faq-question').forEach(item => {
+        item.addEventListener('click', () => {
+          const answer = item.nextElementSibling;
+          answer.classList.toggle('active');
+        });
+      });
+    });
+
+    function logout() {
+      if (confirm('Tem certeza que deseja sair?')) {
+        localStorage.removeItem('user');
+        alert('Logout realizado com sucesso!');
+        window.location.href = 'login.html';
+      }
+    }
+  </script>
+</body>
+</html>

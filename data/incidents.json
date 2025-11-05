@@ -1,0 +1,61 @@
+[
+  {
+    "id": "INC-0001",
+    "requester": "Usuário",
+    "title": "Erro ao fazer login",
+    "category": "Problema de Login",
+    "status": "Aberto",
+    "description": "Não consigo acessar o sistema com minhas credenciais.",
+    "createdAt": "2025-10-20T03:57:58.815Z",
+    "history": [
+      {
+        "type": "create",
+        "text": "Solicitação criada",
+        "date": "2025-10-20T03:57:58.836Z"
+      }
+    ]
+  },
+  {
+    "id": "INC-0002",
+    "requester": "Usuário",
+    "title": "Software trava ao salvar",
+    "category": "Problema no Software",
+    "status": "Em Andamento",
+    "description": "O software de gerenciamento trava toda vez que tento salvar um registro.",
+    "createdAt": "2025-10-22T03:57:58.836Z",
+    "history": [
+      {
+        "type": "create",
+        "text": "Solicitação criada",
+        "date": "2025-10-22T03:57:58.836Z"
+      },
+      {
+        "type": "update",
+        "text": "Em análise pela equipe técnica",
+        "date": "2025-10-23T03:57:58.836Z"
+      }
+    ]
+  },
+  {
+    "id": "INC-0003",
+    "requester": "Usuário",
+    "title": "Mensagem de erro no dashboard",
+    "category": "Problema no Software",
+    "status": "Resolvido",
+    "description": "Aparece uma mensagem de erro 500 ao acessar o dashboard.",
+    "createdAt": "2025-10-15T03:57:58.836Z",
+    "resolution": "Erro corrigido após atualização do servidor.",
+    "history": [
+      {
+        "type": "create",
+        "text": "Solicitação criada",
+        "date": "2025-10-15T03:57:58.836Z"
+      },
+      {
+        "type": "resolve",
+        "text": "Solicitação resolvida",
+        "date": "2025-10-17T03:57:58.836Z"
+      }
+    ]
+  }
+]
