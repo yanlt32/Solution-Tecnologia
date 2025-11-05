@@ -41,48 +41,17 @@ Medalhas (ouro, prata e bronze)
 Suporte a tema claro/escuro
 
 🧩 Estrutura do Projeto
-Lbfg-report/2025-11-04/23-45-54/pro/
-├── data/                 # Dados da aplicação
-│   ├── incidents.json
-│   ├── processes.json
-│   ├── requests.json
-│   └── users.json
-├── src/
-│   └── img/
-│       └── 12.png
-├── js/
-│   └── auth.js           # Autenticação de usuários
-├── views/                # Interfaces do sistema
-│   ├── adm/              # Painel administrativo
-│   │   ├── dashboard-adm.html
-│   │   ├── tillAdm.html
-│   │   ├── lgpd-adm.html
-│   │   ├── network.html
-│   │   └── logo1.png
-│   ├── usuario/          # Painel do usuário
-│   │   ├── dashboard-user.html
-│   │   ├── faq.html
-│   │   ├── tillUsuario.html
-│   │   ├── lgpd-user.html
-│   │   ├── quiz.html
-│   │   ├── support.html
-│   │   └── logo1.png
-│   ├── login.html
-│   └── logo1.png
-├── bfg-1.15.0.jar        # Ferramenta BFG (limpeza de histórico Git)
-├── main.js               # Processo principal do Electron
-├── preload.js            # Script de pré-carga
-├── package.json
-├── package-lock.json
-└── node debug-structure.js
+<img width="295" height="828" alt="image" src="https://github.com/user-attachments/assets/68ebfd34-1cdb-4ec6-80e1-1c099b8492a0" />
 
-🛠️ Tecnologias Utilizadas
-Tecnologia	Descrição
-HTML5 / CSS3	Estrutura e estilização responsiva (Grid / Flexbox / Variáveis CSS)
-JavaScript (ES6+)	Lógica e interatividade do sistema
-Chart.js	Geração de gráficos dinâmicos
-Canvas Confetti	Efeitos de celebração
-Font Awesome	Ícones modernos e leves
+
+| Tecnologia               | Descrição                            |
+| ------------------------ | ------------------------------------ |
+| **Electron**             | Estrutura principal do app desktop   |
+| **JavaScript (Node.js)** | Lógica da aplicação                  |
+| **HTML5 / CSS3**         | Interface e layout                   |
+| **JSON**                 | Armazenamento de dados local         |
+| **BFG Repo-Cleaner**     | Limpeza de histórico sensível no Git |
+
 ⚙️ Instalação
 
 1️⃣ Clone o repositório:
@@ -95,14 +64,17 @@ git clone https://github.com/seu-usuario/solution-tecnologia.git
 cd solution-tecnologia
 
 
-3️⃣ Instale as dependências:
+---
 
+## ⚙️ Como Executar o Projeto
+
+```bash
+# 1️⃣ Instale as dependências
 npm install
 
-
-4️⃣ Execute o projeto:
-
+# 2️⃣ Execute o projeto
 npm start
+
 
 💡 Desenvolvido por
 
